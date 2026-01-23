@@ -15,7 +15,7 @@ class ExpenseManager {
         $content = file_get_contents($this->filePath);
         $data = json_decode($content, true);
 
-        return is_array($data) ?? [];
+        return is_array($data) ? $data : [];
     }
 
     public function saveExpenses(array $data) {
