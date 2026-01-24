@@ -4,15 +4,10 @@
 require 'ExpenseManager.php';
 $manager = new ExpenseManager();
 
-if (count($argv) < 2 || $argv[1] === '--help' || $argv[1] === '--h') {
-    echo "Usage: expense-tracker <command> [options]\n\n";
-    echo "Commands:\n";
-    echo "  add      --description <text> --amount <number>\n";
-    echo "  list     View all expenses\n";
-    echo "  summary  View total (optional: --month <1-12>)\n";
-    echo "  delete   --id <number>\n";
-    echo "  update   --id <number> --description <text> --amount <number>\n";
-    exit(1); 
+// 1. Check for Help
+if (count($argv) < 2 || in_array($argv[1], ['--help', '-h', '--h'])) {
+    showHelp();
+    exit(1);
 }
 
 switch ($argv[1]) {
@@ -25,16 +20,33 @@ switch ($argv[1]) {
         $id = $manager->addExpense($description, $amount);
         echo "Expense added successfully (ID: $id)\n";
         break;
+    
+    case "list":
+        $expenses = $manager->loadExpenses();
+        if (empty($expenses)) {
+            echo "No expenses recorded yet.\n";
+            break;
+        }
+
+        printAllExpenses($expenses);
+        break;
+
+    default:
+        echo "default\n";
 }
 
 
-// ==============================================================================
-/**
- * Validates arguments for the 'add' command.
- * Exits the script if validation fails.
- */
-function validateAddArgs($argv) 
-{
+
+function showHelp() {
+    echo "Usage: expense-tracker <command> [options]\n\n";
+    echo "Commands:\n";
+    echo "  add      --description <text> --amount <number>\n";
+    echo "  list     View all expenses\n";
+    echo "  summary  View total (optional: --month <1-12>)\n";
+    echo "  delete   --id <number>\n";
+    echo "  update   --id <number> --description <text> --amount <number>\n";
+}
+function validateAddArgs($argv) {
     // 1. Check count
     if (count($argv) < 6) {
         echo "Error: Missing arguments.\n";
@@ -62,4 +74,17 @@ function validateAddArgs($argv)
         exit(1);
     }
 }
-// ==============================================================================
+
+function printAllExpenses($expenses) {
+    // 2. Print the Header Row
+    echo str_pad("ID", 5) . str_pad("Date", 12) . str_pad("Description", 20) . "Amount\n";
+    echo str_repeat("-", 50) . "\n"; // A separator line
+
+    foreach ($expenses as $expense) {
+        echo str_pad($expense['id'], 5);
+        echo str_pad($expense['date'], 12);
+        echo str_pad($expense['description'], 20);
+        echo "$" . $expense['amount'] . "\n";
+    }
+}
+
