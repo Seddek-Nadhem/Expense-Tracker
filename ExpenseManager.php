@@ -73,11 +73,21 @@ class ExpenseManager {
     }
 
     public function updateExpense($id, $description, $amount) {
-        $isFound = $this->hasExpense($id);
-        if (!$isFound) return "Note is Not Found!\n";
+        $expenses = $this->loadExpenses();
 
-        
+        foreach($expenses as &$expense) {
+            if($expense['id'] == $id) {
+                $expense['description'] = $description;
+                $expense['amount'] = $amount;
+                $expense['date'] = date('Y-m-d');
+                
+                $this->saveExpenses($expenses);
 
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public function getAllExpenses() {
