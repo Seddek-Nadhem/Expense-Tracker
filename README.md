@@ -57,6 +57,7 @@ expense-tracker list
 ```
 
 3. View Summary
+
 a. Total of all time:
 ```bash
 expense-tracker summary
