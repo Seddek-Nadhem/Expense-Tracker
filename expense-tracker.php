@@ -190,7 +190,7 @@ function getSummaryOfAllMonths($manager) {
         $summary += $expense['amount'];
     }
 
-    echo "Total expenses: {$summary}\n";
+    echo "Total expenses: \${$summary}\n";
 }
 function printAllExpenses($expenses) {
     // 2. Print the Header Row
