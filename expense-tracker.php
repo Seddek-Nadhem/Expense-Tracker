@@ -7,7 +7,7 @@ $manager = new ExpenseManager();
 
 // 1. Check for Help
 if (count($argv) < 2 || in_array($argv[1], ['--help', '-h', '--h'])) {
-    showHelp();
+    CLIHelper::showHelp();
     exit(1);
 }
 
@@ -29,7 +29,7 @@ switch ($argv[1]) {
             exit(1);
         }
 
-        printAllExpenses($expenses);
+        CLIHelper::printAllExpenses($expenses);
         break;
 
     case "delete":
@@ -67,15 +67,7 @@ switch ($argv[1]) {
         echo "default\n";
 }
 
-function showHelp() {
-    echo "Usage: expense-tracker <command> [options]\n\n";
-    echo "Commands:\n";
-    echo "  add      --description <text> --amount <number>\n";
-    echo "  list     View all expenses\n";
-    echo "  summary  View total (optional: --month <1-12>)\n";
-    echo "  delete   --id <number>\n";
-    echo "  update   --id <number> --description <text> --amount <number>\n";
-}
+
 function getSummaryOfOneMonth($manager, $month) {
     $expenses = $manager->loadExpenses();
     $summary = 0;
@@ -109,16 +101,4 @@ function getSummaryOfAllMonths($manager) {
     }
 
     echo "Total expenses: \${$summary}\n";
-}
-function printAllExpenses($expenses) {
-    // 2. Print the Header Row
-    echo str_pad("ID", 5) . str_pad("Date", 12) . str_pad("Description", 20) . "Amount\n";
-    echo str_repeat("-", 50) . "\n"; // A separator line
-
-    foreach ($expenses as $expense) {
-        echo str_pad($expense['id'], 5);
-        echo str_pad($expense['date'], 12);
-        echo str_pad($expense['description'], 20);
-        echo "$" . $expense['amount'] . "\n";
-    }
 }
