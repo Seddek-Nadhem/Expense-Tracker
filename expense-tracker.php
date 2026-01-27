@@ -3,6 +3,7 @@
 
 require 'ExpenseManager.php';
 require 'Validator.php';
+require 'CLIHelper.php';
 $manager = new ExpenseManager();
 
 // 1. Check for Help
