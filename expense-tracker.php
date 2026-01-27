@@ -8,7 +8,7 @@ $manager = new ExpenseManager();
 
 // if no command provided
 if (count($argv) < 2) {
-    CLIHelper::showHelp("You did not enter a command! Feel free to type --help for instructions :D\n\n");
+    CLIHelper::showHelp("You did not enter a valid command! Feel free to type --help for instructions :D\n");
     exit(1);
 }
 //if asked for help
@@ -69,6 +69,6 @@ switch ($argv[1]) {
         break;
 
     default:
-        echo "default\n";
+        CLIHelper::showHelp("You did not enter a valid command! Feel free to type --help for instructions :D\n");
 }
 
