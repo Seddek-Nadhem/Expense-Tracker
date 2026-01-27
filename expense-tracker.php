@@ -11,7 +11,6 @@ if (count($argv) < 2 || in_array($argv[1], ['--help', '-h', '--h'])) {
     CLIHelper::showHelp();
     exit(1);
 }
-
 switch ($argv[1]) {
     case "add":
         Validator::validateAddArgs($argv);
@@ -46,14 +45,14 @@ switch ($argv[1]) {
 
     case "summary":
         if (count($argv) < 3) {
-            getSummaryOfAllMonths($manager);
+            $manager->getSummaryOfAllMonths($manager);
             exit(0);
         }
 
         Validator::validateSummaryArgs($argv);
 
         $month = $argv[3];
-        $summary = getSummaryOfOneMonth($manager, $month);
+        $summary = $manager->getSummaryOfOneMonth($manager, $month);
 
         if ($summary == 0) {
             echo "There are no expenses for this month!\n";
@@ -68,38 +67,3 @@ switch ($argv[1]) {
         echo "default\n";
 }
 
-
-function getSummaryOfOneMonth($manager, $month) {
-    $expenses = $manager->loadExpenses();
-    $summary = 0;
-    $currentYear = date('Y');
-
-    foreach($expenses as $expense) {
-        $timestamp = strtotime($expense['date']);
-        // 1. strtotime converts "2026-01-24" into a timestamp
-        // 2. date('n') extracts the month number without leading zeros (1 to 12)
-        $expenseMonth = date('n', $timestamp);
-        $expenseYear = date('Y', $timestamp);
-
-        if ((int)$expenseMonth === (int)$month && (int)$expenseYear === (int)$currentYear) {
-            $summary += $expense['amount'];
-        }
-    }
-
-    return $summary;
-}
-function getSummaryOfAllMonths($manager) {
-    $expenses = $manager->loadExpenses();
-
-    if (empty($expenses)) {
-        echo "There're no expenses!\n";
-        exit(1);
-    }
-
-    $summary = 0;
-    foreach($expenses as $expense) {
-        $summary += $expense['amount'];
-    }
-
-    echo "Total expenses: \${$summary}\n";
-}

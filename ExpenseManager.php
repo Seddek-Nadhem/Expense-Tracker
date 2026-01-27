@@ -86,4 +86,38 @@ class ExpenseManager {
     public function getAllExpenses() {
         return $this->loadExpenses();
     }
+    function getSummaryOfOneMonth($manager, $month) {
+        $expenses = $manager->loadExpenses();
+        $summary = 0;
+        $currentYear = date('Y');
+
+        foreach($expenses as $expense) {
+            $timestamp = strtotime($expense['date']);
+            // 1. strtotime converts "2026-01-24" into a timestamp
+            // 2. date('n') extracts the month number without leading zeros (1 to 12)
+            $expenseMonth = date('n', $timestamp);
+            $expenseYear = date('Y', $timestamp);
+
+            if ((int)$expenseMonth === (int)$month && (int)$expenseYear === (int)$currentYear) {
+                $summary += $expense['amount'];
+            }
+        }
+
+        return $summary;
+    }
+    function getSummaryOfAllMonths($manager) {
+        $expenses = $manager->loadExpenses();
+
+        if (empty($expenses)) {
+            echo "There're no expenses!\n";
+            exit(1);
+        }
+
+        $summary = 0;
+        foreach($expenses as $expense) {
+            $summary += $expense['amount'];
+        }
+
+        echo "Total expenses: \${$summary}\n";
+    }
 }
