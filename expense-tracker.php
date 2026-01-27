@@ -164,13 +164,16 @@ function validateSummaryArgs($argv) {
 function getSummaryOfOneMonth($manager, $month) {
     $expenses = $manager->loadExpenses();
     $summary = 0;
+    $currentYear = date('Y');
 
     foreach($expenses as $expense) {
+        $timestamp = strtotime($expense['date']);
         // 1. strtotime converts "2026-01-24" into a timestamp
         // 2. date('n') extracts the month number without leading zeros (1 to 12)
-        $expenseMonth = date('n', strtotime($expense['date']));
+        $expenseMonth = date('n', $timestamp);
+        $expenseYear = date('Y', $timestamp);
 
-        if ((int)$expenseMonth === (int)$month) {
+        if ((int)$expenseMonth === (int)$month && (int)$expenseYear === (int)$currentYear) {
             $summary += $expense['amount'];
         }
     }
