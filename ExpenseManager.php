@@ -10,7 +10,6 @@ class ExpenseManager {
             file_put_contents($this->filePath, '[]');
         }
     }
-
     public function hasExpense($id) {
         $expenses = $this->loadExpenses();
 
@@ -20,19 +19,16 @@ class ExpenseManager {
 
         return false;
     }
-
     public function loadExpenses() {
         $content = file_get_contents($this->filePath);
         $data = json_decode($content, true);
 
         return is_array($data) ? $data : [];
     }
-
     public function saveExpenses(array $data) {
         $json = json_encode($data, JSON_PRETTY_PRINT);
         file_put_contents($this->filePath, $json);
     }
-
     public function addExpense($description, $amount) {
         $expenses = $this->loadExpenses();
 
@@ -55,7 +51,6 @@ class ExpenseManager {
 
         return $newId;
     }
-
     public function deleteExpense($id) {
         $expenses = $this->loadExpenses();
         $newExpenses = [];
@@ -71,7 +66,6 @@ class ExpenseManager {
         
         return true;
     }
-
     public function updateExpense($id, $description, $amount) {
         $expenses = $this->loadExpenses();
 
@@ -89,9 +83,7 @@ class ExpenseManager {
 
         return false;
     }
-
     public function getAllExpenses() {
         return $this->loadExpenses();
     }
-
 }

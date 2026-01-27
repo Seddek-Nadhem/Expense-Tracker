@@ -31,6 +31,17 @@ switch ($argv[1]) {
         printAllExpenses($expenses);
         break;
 
+    case "delete":
+        validateDeleteArgs($argv);
+
+        $id = $argv[3];
+
+        $success = $manager->deleteExpense($id);
+
+        if ($success) echo "Expense has been deleted SUCCESSFULLY!\n";
+        else echo "Expense has not been found! Please enter the right ID\n";
+        break;
+
     default:
         echo "default\n";
 }
@@ -74,7 +85,23 @@ function validateAddArgs($argv) {
         exit(1);
     }
 }
+function validateDeleteArgs($argv) {
+    if (count($argv) < 4) {
+        echo "There's something missing in your command!\n";
+        echo "It has to be like this: expense-tracker delete --id <id>\n";
+        exit(1);
+    }
 
+    if ($argv[2] !== '--id') {
+        echo "Error: Expected '--id' but found '{$argv[2]}'.\n";
+        exit(1);
+    }
+
+    if (!is_numeric($argv[3])) {
+        echo "The ID you entered is not a number. Please enter the correct ID!\n";
+        exit(1);
+    }
+}
 function printAllExpenses($expenses) {
     // 2. Print the Header Row
     echo str_pad("ID", 5) . str_pad("Date", 12) . str_pad("Description", 20) . "Amount\n";
@@ -87,4 +114,3 @@ function printAllExpenses($expenses) {
         echo "$" . $expense['amount'] . "\n";
     }
 }
-
