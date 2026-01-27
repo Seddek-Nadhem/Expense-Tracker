@@ -19,7 +19,7 @@ A simple, robust command-line tool to track, manage, and analyze your personal e
 
 ### 1. Clone the Repository
 ```bash
-git clone (https://github.com/seddek-nadhem/expense-tracker.git)
+git clone https://github.com/seddek-nadhem/expense-tracker.git
 cd expense-tracker
 ```
 
