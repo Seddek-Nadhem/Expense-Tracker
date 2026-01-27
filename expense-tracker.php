@@ -6,10 +6,15 @@ require 'Validator.php';
 require 'CLIHelper.php';
 $manager = new ExpenseManager();
 
-// 1. Check for Help
-if (count($argv) < 2 || in_array($argv[1], ['--help', '-h', '--h'])) {
-    CLIHelper::showHelp();
+// if no command provided
+if (count($argv) < 2) {
+    CLIHelper::showHelp("You did not enter a command! Feel free to type --help for instructions :D\n\n");
     exit(1);
+}
+//if asked for help
+if (in_array($argv[1], ['--help', '-h', '--h'])) {
+    CLIHelper::showHelp();
+    exit(0);
 }
 switch ($argv[1]) {
     case "add":

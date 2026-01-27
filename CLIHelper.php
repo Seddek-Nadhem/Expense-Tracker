@@ -1,14 +1,15 @@
 <?php
 
 class CLIHelper {
-    public static function showHelp() {
-        echo "Usage: expense-tracker <command> [options]\n\n";
-        echo "Commands:\n";
-        echo "  add      --description <text> --amount <number>\n";
-        echo "  list     View all expenses\n";
-        echo "  summary  View total (optional: --month <1-12>)\n";
-        echo "  delete   --id <number>\n";
-        echo "  update   --id <number> --description <text> --amount <number>\n";
+    public static function showHelp($message = "") {
+        if ($message) echo $message . "\n";
+
+        echo "Commands:\n\n";
+        echo "  1- add      --description <product name> --amount <product price>\n";
+        echo "  2- list     View all expenses\n";
+        echo "  3- summary  (sum of all expenses of all the months of the current year)\n";
+        echo "  4- summary  --month <month number 1-12> (sum of all expenses for only a month of the current year)\n";
+        echo "  5- delete   --id <number>\n";
     }
     public static function printAllExpenses($expenses) {
         // 2. Print the Header Row
