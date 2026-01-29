@@ -46,19 +46,21 @@ Step 2: Run locally You can now run it using ./:
 
 1. Add an Expense
 
-You must provide a description and an amount (in that order).
+    You must provide a description and an amount (in that order).
 ```bash
 expense-tracker add --description "Lunch" --amount 20
 ```
 
 2. List All Expenses
-Shows a table of ID, Date, Description, and Amount.
+
+    Shows a table of ID, Date, Description, and Amount.
 ```bash
 expense-tracker list
 ```
 
 3. View Summary
-   a. Total of all time:
+
+    a. Total of all time:
 ```bash
 expense-tracker summary
 ```
@@ -68,7 +70,8 @@ expense-tracker summary --month 8
 ```
 
 4. Delete an Expense
-   Remove an expense using the ID found in the list command.
+
+    Remove an expense using the ID found in the list command.
 ```bash
 expense-tracker delete --id 1
 ```
