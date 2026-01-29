@@ -57,20 +57,17 @@ expense-tracker list
 ```
 
 3. View Summary
-
-    a. Total of all time:
+   a. Total of all time:
 ```bash
 expense-tracker summary
 ```
-
-    b. Total for a specific month (e.g., August):
+  b. Total for a specific month (e.g., August):
 ```bash
 expense-tracker summary --month 8
 ```
 
 4. Delete an Expense
-
-    Remove an expense using the ID found in the list command.
+   Remove an expense using the ID found in the list command.
 ```bash
 expense-tracker delete --id 1
 ```
