@@ -24,15 +24,15 @@ cd expense-tracker
 ```
 
 ### 2. Run on Windows
-This project includes a expense-tracker.bat file for easy execution.
+  This project includes a expense-tracker.bat file for easy execution.
 ```bash
 expense-tracker list
 ```
 
 ### 3. Run on Mac / Linux
-Mac and Linux use the executable permission instead of a .bat file.
+  Mac and Linux use the executable permission instead of a .bat file.
 
-Step 1: Make the script executable Run this command once inside the project folder:
+  Step 1: Make the script executable Run this command once inside the project folder:
 ```bash
 chmod +x expense-tracker.php
 ```
@@ -42,7 +42,7 @@ Step 2: Run locally You can now run it using ./:
 ./expense-tracker.php list
 ```
 
-📖 Usage Guides
+## 📖 Usage Guides
 
 1. Add an Expense
 You must provide a description and an amount (in that order).
@@ -58,37 +58,34 @@ expense-tracker list
 
 3. View Summary
 
-a. Total of all time:
+    a. Total of all time:
 ```bash
 expense-tracker summary
 ```
 
-b. Total for a specific month (e.g., August):
+    b. Total for a specific month (e.g., August):
 ```bash
 expense-tracker summary --month 8
 ```
 
 4. Delete an Expense
-Remove an expense using the ID found in the list command.
+
+    Remove an expense using the ID found in the list command.
 ```bash
 expense-tracker delete --id 1
 ```
 
-📂 Project Structure
-expense-tracker.php - The main entry point (CLI logic).
+## 📂 Project Structure
 
-ExpenseManager.php - Handles business logic, math, and file operations.
+- `expense-tracker.php` - The main entry point (CLI logic).
+- `ExpenseManager.php` - Handles business logic, math, and file operations.
+- `Validator.php` - Handles all strict input validation.
+- `CLIHelper.php` - Handles output formatting and UI.
+- `expenses.json` - The database file (ignored by Git).
+- `expense-tracker.bat` - Windows executable wrapper.
 
-Validator.php - Handles all strict input validation.
-
-CLIHelper.php - Handles output formatting and UI.
-
-expenses.json - The database file (ignored by Git).
-
-expense-tracker.bat - Windows executable wrapper.
-
-🛡️ License
-This project is open-source and available under the MIT License.
+## 🛡️ License
+- This project is open-source and available under the MIT License.
 
 
 
