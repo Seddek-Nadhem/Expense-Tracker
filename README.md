@@ -45,6 +45,7 @@ Step 2: Run locally You can now run it using ./:
 ## 📖 Usage Guides
 
 1. Add an Expense
+
 You must provide a description and an amount (in that order).
 ```bash
 expense-tracker add --description "Lunch" --amount 20
