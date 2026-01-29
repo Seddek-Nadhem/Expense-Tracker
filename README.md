@@ -61,7 +61,7 @@ expense-tracker list
 ```bash
 expense-tracker summary
 ```
-  b. Total for a specific month (e.g., August):
+   b. Total for a specific month (e.g., August):
 ```bash
 expense-tracker summary --month 8
 ```
