@@ -66,19 +66,28 @@ class ExpenseManager {
         
         return true;
     }
-    public function updateExpense($id, $description, $amount) {
+    public function updateExpense($id, $newDescription, $newAmount) {
         $expenses = $this->loadExpenses();
+        $found = false;
 
-        foreach($expenses as &$expense) {
-            if($expense['id'] == $id) {
-                $expense['description'] = $description;
-                $expense['amount'] = $amount;
-                $expense['date'] = date('Y-m-d');
-                
-                $this->saveExpenses($expenses);
-
-                return true;
+        // Use &$expense to modify the array item directly
+        foreach ($expenses as &$expense) {
+            if ($expense['id'] == $id) {
+                // Only update if the new value is NOT null
+                if ($newDescription !== null) {
+                    $expense['description'] = $newDescription;
+                }
+                if ($newAmount !== null) {
+                    $expense['amount'] = $newAmount;
+                }
+                $found = true;
+                break; // Stop looping once found
             }
+        }
+
+        if ($found) {
+            $this->saveExpenses($expenses);
+            return true;
         }
 
         return false;

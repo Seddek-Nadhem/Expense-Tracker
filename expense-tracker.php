@@ -4,6 +4,7 @@
 require 'ExpenseManager.php';
 require 'Validator.php';
 require 'CLIHelper.php';
+
 $manager = new ExpenseManager();
 
 // if no command provided
@@ -65,7 +66,34 @@ switch ($argv[1]) {
         } else {
             echo "The summary of the month you entered is: \${$summary}\n";
         }
+        break;
 
+    case "update":
+        Validator::validateUpdateArgs($argv);
+
+        $id = $argv[3];
+        $newDescription = null;
+        $newAmount = null;
+
+        // Check if --description exists in the arguments
+        $descIndex = array_search('--description', $argv);
+        if ($descIndex !== false) {
+            $newDescription = $argv[$descIndex + 1];
+        }
+
+        // Check if --amount exists in the arguments
+        $amountIndex = array_search('--amount', $argv);
+        if ($amountIndex !== false) {
+            $newAmount = $argv[$amountIndex + 1];
+        }
+
+        $success = $manager->updateExpense($id, $newDescription, $newAmount);
+
+        if ($success) {
+            echo "Expense updated successfully.\n";
+        } else {
+            echo "Error: Expense with ID $id not found.\n";
+        }
         break;
 
     default:

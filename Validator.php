@@ -87,5 +87,58 @@ class Validator {
             exit(1);
         }
     }
+    public static function validateUpdateArgs($argv) {
+        if (count($argv) < 6) {
+            echo "Error: Missing arguments.\n";
+            echo "Usage: update --id <id> --description \"New Description\" --amount <New Amount>\n";
+            echo "You can update amount or description alone!\n";
+            exit(1);
+        }
 
+        if ($argv[2] != "--id") {
+            echo "Error: expected '--id' at position 2 but found '{$argv[2]}'.\n";
+            echo "Usage: update --id <id> --description \"New Description\" --amount <New Amount>\n";
+            echo "You can update amount or description alone!\n";
+            exit(1);
+        }
+
+        if (!is_numeric($argv[3])) {
+            echo "Error: expected an ID number at position 3 but found '{$argv[3]}'.\n";
+            echo "Usage: update --id <id> --description \"New Description\" --amount <New Amount>\n";
+            echo "You can update amount or description alone!\n";
+            exit(1);
+        }
+
+        // 3. Flexible Validation (Loop through the rest)
+        $hasUpdate = false;
+
+        // Start checking from index 4, jumping by 2 (Flag -> Value)
+        for ($i = 4; $i < count($argv); $i += 2) {
+            $flag = $argv[$i];
+            $value = $argv[$i + 1] ?? null;
+
+            if ($value === null) {
+                echo "Error: Missing value for flag '$flag'.\n";
+                exit(1);
+            }
+
+            if ($flag === '--description') {
+                $hasUpdate = true;
+            } elseif ($flag === '--amount') {
+                if (!is_numeric($value)) {
+                    echo "Error: Amount must be a number.\n";
+                    exit(1);
+                }
+                $hasUpdate = true;
+            } else {
+                echo "Error: Unknown flag '$flag'. Allowed: --description, --amount\n";
+                exit(1);
+            }
+        }
+
+        if (!$hasUpdate) {
+            echo "Error: You must provide at least one field to update.\n";
+            exit(1);
+        }
+    }
 }
