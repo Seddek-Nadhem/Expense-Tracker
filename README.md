@@ -88,6 +88,10 @@ expense-tracker delete --id 1
 ## 🛡️ License
 - This project is open-source and available under the MIT License.
 
+## Inspiration
+
+- Project was done on instructions from the backend projects beginner page on roadmap.sh
+https://roadmap.sh/projects/expense-tracker
 
 
 
