@@ -7,6 +7,7 @@ A simple, robust command-line tool to track, manage, and analyze your personal e
 * **Add Expenses:** Record new expenses with a description and amount.
 * **List Expenses:** View a formatted table of all recorded expenses.
 * **Summary:** View your total expenses or filter by a specific month (current year).
+* **Update Expenses:** Modify the description or amount of an existing record using its unique ID.
 * **Delete:** Remove specific expenses by their unique ID.
 * **Persistent Storage:** Data is saved locally in a JSON file (`expenses.json`).
 * **Strict Validation:** Prevents invalid inputs to keep data clean.
@@ -67,6 +68,13 @@ expense-tracker summary
    b. Total for a specific month (e.g., August):
 ```bash
 expense-tracker summary --month 8
+```
+
+4. Update an Expense
+
+   Update either the description, the amount, or both. The ID is required.
+```bash
+expense-tracker update --id 1 --description "New Name" --amount 50
 ```
 
 4. Delete an Expense
