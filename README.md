@@ -77,7 +77,7 @@ expense-tracker summary --month 8
 expense-tracker update --id 1 --description "New Name" --amount 50
 ```
 
-4. Delete an Expense
+5. Delete an Expense
 
     Remove an expense using the ID found in the list command.
 ```bash
